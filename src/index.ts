@@ -1,9 +1,9 @@
 import TelegramBot from "node-telegram-bot-api";
-import { getCommandListText } from "./labelCommands";
+import { getCommandListText } from "./commands/labelCommands";
 
 import DotEnv from "dotenv-safe";
 
-import { trackingPackage } from "./commands/trackinPackage";
+import { trackingPackage } from "./commands/trackingPackage";
 
 DotEnv.config();
 
