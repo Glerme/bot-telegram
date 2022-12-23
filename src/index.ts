@@ -11,14 +11,18 @@ const token = process.env.TELEGRAM_TOKEN;
 
 const bot = new TelegramBot(token, { polling: true });
 
-let codRastreio = ["NA345819703BR", "NA377910329BR", "QM683596338BR"];
+// bot.on("message", (msg) => {
+//   return bot.sendMessage(
+//     msg.chat.id,
+//     `Bem Vindo ao bot de rastreio de encomendas: ${getCommandListText()}`
+//   );
+// });
 
 bot.onText(/\/start/, (msg) => {
   return bot.sendMessage(
     msg.chat.id,
-    `Bem Vindo ao bot de rastreio de encomendas 
-    ${getCommandListText()}`
+    `Bem Vindo ao bot de rastreio de encomendas: ${getCommandListText()}`
   );
 });
 
-bot.onText(/\/rastreio(.*)/g, trackingPackage);
+bot.onText(/\/rastreio(.*)/g, (msg, match) => trackingPackage(bot, msg, match));

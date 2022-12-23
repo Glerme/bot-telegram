@@ -1,4 +1,9 @@
 export interface TrackingPackageResponseProps {
+  codigoEncomenda: string;
+  eventos: EventosProps[];
+}
+
+export interface EventosProps {
   codigo?: string;
   descricao?: string;
   dtHrCriado?: string;
@@ -7,4 +12,5 @@ export interface TrackingPackageResponseProps {
   cidade?: string;
   uf?: string;
   tipoAgencia?: string;
+  emoji?: string;
 }

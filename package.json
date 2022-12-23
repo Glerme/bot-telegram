@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "correios-brasil": "^3.0.3",
+    "date-format": "^4.0.14",
     "dotenv-safe": "^8.2.0",
     "node-telegram-bot-api": "^0.60.0"
   },

@@ -1,18 +1,18 @@
 interface BotCommand {
   command: string;
   args?: string;
-  description: string;
+  description?: string;
 }
 
-const commands: BotCommand[] = [
-  {
-    command: "/help",
-    description: "Obter a lista de comandos",
-  },
+export const commands: BotCommand[] = [
   {
     command: "/rastreio",
     args: "<Código de rastreio>",
-    description: "Rastreio de encomenda",
+    description: "Rastreio de encomenda separados por ;",
+  },
+  {
+    command: "/help",
+    description: "Obter a lista de comandos",
   },
 ];
 
