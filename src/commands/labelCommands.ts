@@ -7,8 +7,21 @@ interface BotCommand {
 export const commands: BotCommand[] = [
   {
     command: "/rastreio",
-    args: "<Código de rastreio>",
-    description: "Rastreio de encomenda separados por ;",
+    args: "<Códigos de rastreio>",
+    description: `Rastreio de encomenda separados por ;
+      Ex: /rastreio XX000000000XX \n /rastreio XX000000000XX;XX000000000XX;XX000000000XX
+    `,
+  },
+  {
+    command: "/salvar",
+    args: "<Códigos de rastreio>",
+    description: `Salve vários códigos de rastreio nos favoritos separados por ;
+    Ex: /salvar XX000000000XX \n /salvar XX000000000XX;XX000000000XX;XX000000000XX
+    `,
+  },
+  {
+    command: "/listar",
+    description: "Listagem de todos os códigos de rastreio",
   },
   {
     command: "/help",

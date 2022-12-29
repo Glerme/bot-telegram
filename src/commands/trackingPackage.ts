@@ -2,6 +2,8 @@ import TelegramBot from "node-telegram-bot-api";
 import { rastrearEncomendas } from "correios-brasil/dist";
 import format from "date-format";
 
+import { parsedTrackingCodes } from "../functions/parsedTrackingCodes";
+
 import { TrackingPackageRequestProps } from "../@types/TrackingPackageRequestProps";
 import { TrackingPackageResponseProps } from "../@types/TrackingPackageResponseProps";
 
@@ -24,10 +26,9 @@ export async function trackingPackage(
   }
 
   try {
-    const trackingCodesRaw = match[1]
-      .toUpperCase()
-      .replace(" ", "")
-      .split(/[;,./-]/g);
+    bot.sendMessage(msg.chat.id, "Buscando encomendas...");
+
+    const trackingCodesRaw = parsedTrackingCodes(match[1]);
 
     const countCharactersTrackingCodes = trackingCodesRaw.filter(
       (rastreio) => rastreio.length !== 13
