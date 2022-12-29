@@ -11,7 +11,7 @@ export async function listPackages(bot: TelegramBot, msg: TelegramBot.Message) {
   try {
     bot.sendMessage(chatId, "Buscando códigos...");
 
-    const upsertNewCodes = await prisma.user.findUnique({
+    const findTrackings = await prisma.user.findUnique({
       where: {
         chatId: `${msg.chat.id}`,
       },
@@ -24,11 +24,11 @@ export async function listPackages(bot: TelegramBot, msg: TelegramBot.Message) {
       },
     });
 
-    if (upsertNewCodes?.trackings?.length === 0) {
+    if (findTrackings?.trackings?.length === 0) {
       return bot.sendMessage(chatId, "Nenhuma encomenda encotrada!");
     }
 
-    return upsertNewCodes?.trackings?.map((tracking) =>
+    return findTrackings?.trackings?.map((tracking) =>
       bot.sendMessage(
         chatId,
         `- Código da encomenda: ${tracking.codigo}

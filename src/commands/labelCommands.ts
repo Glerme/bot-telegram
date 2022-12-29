@@ -21,7 +21,8 @@ export const commands: BotCommand[] = [
   },
   {
     command: "/listar",
-    description: "Listagem de todos os códigos de rastreio",
+    description:
+      "Listagem de todos os códigos de rastreio salvos nos favoritos",
   },
   {
     command: "/help",
