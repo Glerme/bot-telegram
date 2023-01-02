@@ -11,13 +11,11 @@ export async function deletePackage(
   message: string
 ) {
   try {
-    const deletePackage = await prisma.trackings.delete({
+    await prisma.trackings.delete({
       where: {
         codigo: message,
       },
     });
-
-    console.log(deletePackage);
 
     bot.sendMessage(chatId, "Código deletado com sucesso!");
   } catch (err) {
