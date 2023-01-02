@@ -1,18 +1,18 @@
 version: "3"
 
 services:
-  # bot_telegram_rastreio:
-  #   build: .
-  #   command: yarn start
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - .:/usr/app
-  #   environment:
-  #     - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_DB=${POSTGRES_DB}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  bot_telegram_rastreio:
+    build: .
+    command: yarn start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   db:
     container_name: "database-bot"
