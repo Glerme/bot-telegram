@@ -16,20 +16,26 @@ const bot = new TelegramBot(token, { polling: true });
 let codigosTestes = ["TE200690411BR", "QM683596338BR", "NA377910329BR"];
 
 bot.onText(/\/start/, (msg) => {
-  return bot.sendMessage(
+  bot.sendMessage(
     msg.chat.id,
     `Bem Vindo ao bot de rastreio de encomendas: ${getCommandListText()}`
   );
+  return;
+});
+
+bot.onText(/\/help/, (msg) => {
+  bot.sendMessage(msg.chat.id, getCommandListText());
+  return;
 });
 
 bot.onText(
   /\/rastreio(.*)/g,
-  async (msg, match) => await trackingPackage(bot, msg, match)
+  async (msg, match) => await trackingPackage(bot, msg, match[1])
 );
 
-bot.onText(/\/lista/, async (msg) => await listPackages(bot, msg));
+bot.onText(/\/listar/, async (msg) => await listPackages(bot, msg));
 
 bot.onText(
   /\/salvar(.*)/g,
-  async (msg, match) => await saveFavoritePackages(bot, msg, match)
+  async (msg, match) => await saveFavoritePackages(bot, msg, match[1])
 );
