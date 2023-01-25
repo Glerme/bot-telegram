@@ -7,8 +7,24 @@ interface BotCommand {
 export const commands: BotCommand[] = [
   {
     command: "/rastreio",
-    args: "<Código de rastreio>",
-    description: "Rastreio de encomenda separados por ;",
+    args: "<Cod rastreio>",
+    description: `Rastreio de encomenda separados por ;
+      Ex: /rastreio XX000000000XX 
+      /rastreio XX000000000XX;XX000000000XX
+    `,
+  },
+  {
+    command: "/salvar",
+    args: "<Cod rastreio>",
+    description: `Salve vários códigos de rastreio nos favoritos separados por ;
+    Ex: /salvar XX000000000XX 
+    /salvar XX000000000XX;XX000000000XX
+    `,
+  },
+  {
+    command: "/listar",
+    description:
+      "Listagem de todos os códigos de rastreio salvos nos favoritos",
   },
   {
     command: "/help",
@@ -24,7 +40,8 @@ const getCommand = (commandName: string) => {
 };
 
 const getCommandFullDescription = (x: BotCommand) =>
-  `${x.command}${x.args ? " " + x.args : ""} - ${x.description}`;
+  `${x.command}${x.args ? " " + x.args : ""} - ${x.description}
+    ----------------------------------------------------------------`;
 
 const getCommandListText = () =>
   commands.map(getCommandFullDescription).join("\n");

@@ -2,32 +2,33 @@ import TelegramBot from "node-telegram-bot-api";
 import { rastrearEncomendas } from "correios-brasil/dist";
 import format from "date-format";
 
+import { parsedTrackingCodes } from "../functions/parsedTrackingCodes";
+
 import { TrackingPackageRequestProps } from "../@types/TrackingPackageRequestProps";
 import { TrackingPackageResponseProps } from "../@types/TrackingPackageResponseProps";
 
+import { emojis } from "../constants/emojis";
+
 import { commands, getCommandFullDescription } from "./labelCommands";
 import { trackingPackageFactory } from "../factories/trackinPackageFactory";
-import { emojis } from "../constants/emojis";
 
 export async function trackingPackage(
   bot: TelegramBot,
   msg: TelegramBot.Message,
-  match: RegExpExecArray
+  match: string
 ) {
   const chatId = msg.chat.id;
 
-  if (match[1] === "") {
-    return bot.sendMessage(
-      msg.chat.id,
-      `${getCommandFullDescription(commands[0])}`
-    );
+  if (match === "") {
+    bot.sendMessage(msg.chat.id, `${getCommandFullDescription(commands[0])}`);
+
+    return;
   }
 
   try {
-    const trackingCodesRaw = match[1]
-      .toUpperCase()
-      .replace(" ", "")
-      .split(/[;,./-]/g);
+    bot.sendMessage(msg.chat.id, "Buscando encomendas...");
+
+    const trackingCodesRaw = parsedTrackingCodes(match);
 
     const countCharactersTrackingCodes = trackingCodesRaw.filter(
       (rastreio) => rastreio.length !== 13
@@ -61,13 +62,15 @@ export async function trackingPackage(
     }));
 
     if (errorsMessage[0].message) {
-      return errorsMessage.map((errorMessage) =>
+      errorsMessage.map((errorMessage) =>
         bot.sendMessage(
           msg.chat.id,
           ` ${emojis.error} Ocorreu um erro com o Código ${errorMessage.codEncomenda},
          \n Mensagem: \n${errorMessage.message}`
         )
       );
+
+      return;
     }
 
     const parsedTrackingPackages = trackingPackages.map(trackingPackageFactory);
@@ -91,6 +94,10 @@ export async function trackingPackage(
     );
   } catch (err) {
     console.error(err);
-    bot.sendMessage(chatId, "Ocorreu um erro, por favor tente mais tarde.");
+    bot.sendMessage(
+      chatId,
+      `${emojis.error} Ocorreu um erro, por favor tente mais tarde.`
+    );
+    return;
   }
 }
