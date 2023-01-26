@@ -49,17 +49,18 @@ export async function saveFavoritePackages(
     }
 
     for (const code of trackingCodesRaw) {
-      const getOneTracking = prisma.trackings.findUnique({
+      const getOneTracking = await prisma.trackings.findUnique({
         where: {
           codigo: code,
         },
       });
 
-      if (getOneTracking)
+      if (getOneTracking) {
         return bot.sendMessage(
           msg.chat.id,
           `O Código ${code} já está cadastrado!`
         );
+      }
 
       await prisma.user.upsert({
         where: {
